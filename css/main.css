@@ -34,6 +34,8 @@ td {
 */
 }
 
+th,
+td,
 a,
 h1,
 h2,
@@ -46,9 +48,68 @@ h6 {
 	/*font-weight: 600;*/
 }
 
+th,
+td {
+	text-align: center;
+}
+
 
 .headerPlaceholder {
 	position: sticky;
 	width: 100%;
 	top: 0;
+}
+
+.headerPlaceholder {
+	z-index: 999;
+	/* чим більше число, тим вище над іншими */
+}
+
+.content {
+	width: 75%;
+	margin: 0 auto;
+}
+
+
+
+.IMG {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+.map-container {
+	position: relative;
+	display: inline-block;
+	width: fit-content;
+	height: auto;
+}
+
+.map-container img {
+	display: block;
+	width: 100%;
+	/* картинка займає весь контейнер */
+	height: auto;
+	/* зберігає пропорції */
+}
+
+.map-marker {
+	all: unset;
+	/* скидати всі стилі браузера */
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background-color: #7BADE2;
+	border: 1px solid black;
+	cursor: pointer;
+	box-sizing: border-box;
+	transform: translate(-50%, -50%);
+	display: block;
+	/* або inline-block */
+}
+
+.map-marker:hover {
+	transform: translate(-50%, -50%) scale(1.2);
+	background-color: #FD89CD;
 }
