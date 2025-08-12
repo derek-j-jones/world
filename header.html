@@ -1,0 +1,146 @@
+<header>
+    <div class="menu-btn">☰</div>
+    <nav class="menu">
+        <ul>
+            <li>
+                <a href="/index.html">
+                    <img src="/img/home_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" alt="Головна">
+                </a>
+            </li>
+
+            <li>
+                <a href="#">Народності</a>
+                <ul>
+                    <li><a href="/Народи/Mythics.html">Міфіки</a></li>
+                    <li><a href="/Народи/Elf.html">Ельфи</a></li>
+                    <li><a href="/Народи/Giants.html">Гіганти</a></li>
+                    <li><a href="/Народи/Draconites.html">Драконіти</a></li>
+                    <li><a href="/Народи/Dwarflings.html">Дворфлінги</a></li>
+                    <li><a href="/Народи/Goblinoids.html">Гобліноїди</a></li>
+                    <li><a href="/Народи/Reptiloids.html">Рептилоїди</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">Держави</a>
+                <ul>
+                    <li><a href="/Держави/Archeos.html">Археос (міфіки)</a></li>
+                    <li><a href="/Держави/Asteristema.html">Астерістема (ельфи)</a></li>
+                    <li><a href="/Держави/Tenemain.html">Тенемайн (ельфи)</a></li>
+                    <li><a href="/Держави/Dasinsklave.html">Дасінсклав (ельфи)</a></li>
+                    <li><a href="/Держави/Yarnagil.html">Ярнагіль (гіганти)</a></li>
+                    <li><a href="/Держави/Irmynsgal.html">Ірмінсгал (гіганти)</a></li>
+                    <li><a href="/Держави/Yingwing.html">Інгвінг (гіганти)</a></li>
+                    <li><a href="/Держави/Helzhelm.html">Хелзхельм (гіганти)</a></li>
+                    <li><a href="/Держави/LonJiGou.html">Лон Джі Гоу (драокніти)</a></li>
+                    <li><a href="/Держави/Kragafor.html">Краґафор (драокніти)</a></li>
+                    <li><a href="/Держави/Durgadoz.html">Дурґадоз (дворфлінги)</a></li>
+                    <li><a href="/Держави/Nurganog.html">Нурґаноґ (дворфлінги)</a></li>
+                    <li><a href="/Держави/Thirigasoc.html">Тіріґасоц (дворфлінги)</a></li>
+                    <li><a href="/Держави/Minargar.html">Мінар'гар (дворфлінги)</a></li>
+                    <li><a href="/Держави/Karanor.html">Каранор (дворфлінги)</a></li>
+                    <li><a href="/Держави/Bankhayad.html">Банхаяд (гобліноїди)</a></li>
+                    <li><a href="/Держави/YagyeThan.html">Іяґ'є тан (гобліноїди)</a></li>
+                    <li><a href="/Держави/Psa.html">Пса (рептилоїди)</a></li>
+                    <li><a href="/Держави/Psavek.html">Псавек (рептилоїди)</a></li>
+                    <li><a href="/Держави/Welpont.html">Велпонт (рептилоїди)</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">Релігії</a>
+                <ul>
+                    <li><a href="/Релігії/Mythics.html">Міфіки</a></li>
+                    <li><a href="/Релігії/Elf.html">Ельфи</a></li>
+                    <li><a href="/Релігії/Giants.html">Гіганти</a></li>
+                    <li><a href="/Релігії/Draconites.html">Драконіти</a></li>
+                    <li><a href="/Релігії/Dwarflings.html">Дворфлінги</a></li>
+                    <li><a href="/Релігії/Goblinoids.html">Гобліноїди</a></li>
+                    <li><a href="/Релігії/Reptiloids.html">Рептилоїди</a></li>
+                </ul>
+            </li>
+
+            <li><a href="/languages.html">Мови</a></li>
+        </ul>
+    </nav>
+</header>
+
+<style>
+    header {
+        background-color: #222;
+        color: white;
+    }
+
+    nav {
+        display: flex;
+    }
+
+    nav>ul {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: auto;
+    }
+
+    nav ul li {
+        position: relative;
+    }
+
+    nav a {
+        display: block;
+        padding: 14px 20px;
+        color: white;
+        text-decoration: none;
+    }
+
+    nav a:hover {
+        background-color: #444;
+    }
+
+    nav ul ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #222;
+        list-style: none;
+        min-width: 200px;
+        z-index: 1000;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    nav ul ul li a {
+        padding: 10px;
+    }
+
+    nav ul li:hover>ul {
+        display: block;
+    }
+
+    .menu-btn {
+        display: none;
+        padding: 14px 20px;
+        cursor: pointer;
+        background-color: #222;
+    }
+
+    @media (max-width: 768px) {
+        nav {
+            display: none;
+            flex-direction: column;
+        }
+
+        nav.active {
+            display: flex;
+        }
+
+        nav ul {
+            flex-direction: column;
+        }
+
+        .menu-btn {
+            display: block;
+        }
+    }
+</style>
