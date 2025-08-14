@@ -78,9 +78,8 @@ td {
 }
 
 h1,
-h2,
-{
-text-align: center;
+h2 {
+	text-align: center;
 }
 
 .IMG {
