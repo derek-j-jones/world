@@ -34,6 +34,8 @@ td {
 */
 }
 
+b,
+u,
 th,
 td,
 a,
@@ -46,6 +48,11 @@ h6 {
 	font-family: 'Montserrat Alternates';
 	text-decoration: none;
 	/*font-weight: 600;*/
+}
+
+u,
+a {
+	color: #7BADE2;
 }
 
 th,
@@ -70,7 +77,9 @@ td {
 	margin: 0 auto;
 }
 
-
+h1 {
+	text-align: center;
+}
 
 .IMG {
 	display: block;
@@ -112,4 +121,83 @@ td {
 .map-marker:hover {
 	transform: translate(-50%, -50%) scale(1.2);
 	background-color: #FD89CD;
+}
+
+
+
+
+
+
+
+.no-bullet {
+	list-style-type: none;
+	/* прибирає маркер */
+	margin-top: 10px;
+	/* трохи відступу зверху для візуального розділення */
+}
+
+.no-bullet strong {
+	font-size: 1.2em;
+	color: #7BADE2;
+}
+
+
+.god-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	gap: 12px;
+	max-width: 900px;
+	margin: auto;
+}
+
+.god-card {
+	background: #292929;
+	border: 1px solid #444;
+	border-radius: 10px;
+	padding: 12px;
+	text-align: center;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.god-card:hover {
+	background: #333;
+}
+
+/* Модальне вікно */
+.modal {
+	display: none;
+	/* приховане за замовчуванням */
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+	background: #222;
+	margin: 10% auto;
+	padding: 20px;
+	border: 1px solid #555;
+	border-radius: 12px;
+	max-width: 500px;
+	position: relative;
+	color: #ddd;
+}
+
+.close {
+	position: absolute;
+	right: 12px;
+	top: 8px;
+	font-size: 24px;
+	font-weight: bold;
+	color: #aaa;
+	cursor: pointer;
+}
+
+.close:hover {
+	color: white;
 }
