@@ -14,204 +14,19 @@
 
 	<div class="content">
 
-		<br><br>
-		<div class="converter-container">
-			<h1>Конвертер Валют</h1>
-
-			<div class="input-group">
-				<div class="currency-block">
-					<label for="fromCurrency">Валюта З</label>
-					<select id="fromCurrency" onchange="convertCurrency()"></select>
-					<input type="number" id="amount" value="1.00" min="1" step="1" oninput="convertCurrency()">
-				</div>
-
-				<div class="currency-block">
-					<label for="toCurrency">Валюта У</label>
-					<select id="toCurrency" onchange="convertCurrency()"></select>
-					<p id="toAmountDisplay">0.00</p>
-				</div>
-			</div>
-
-		</div>
-
-	</div>
-	<div class="footerPlaceholder"></div>
-
-	<style>
-		/* Весь ваш CSS, включаючи стилі для body, .currency-block, select, input, #toAmountDisplay */
-		/* ... Ваш великий блок CSS має бути тут ... */
-	</style>
-
-	<script>
-		const rates = {
-
-			"Археос": 1.0,
-			"Ельфійська Імперія": 2.0,
-			"Лон Джі Гоу": 2.5,
-			"Ярнагіль": 2.5,
-			"Ірмінсгал": 2.5,
-			"Іяґ'є тан": 1.2,
-			"Псавек": 4.0,
-			"Краґафор": 5.0,
-			"Дурґадоз": 7.0,
-			"Нурґаноґ": 7.0,
-			"Тіріґасоц": 7.0,
-			"Каранор": 6.0,
-			"Мінар'гар": 6.0
-		};
-
-		function populateDropdowns() {
-			const fromDropdown = document.getElementById('fromCurrency');
-			const toDropdown = document.getElementById('toCurrency');
-
-			// 1. Очищення, якщо потрібно (якщо викликається повторно)
-			fromDropdown.innerHTML = '';
-			toDropdown.innerHTML = '';
-
-			for (const currency in rates) {
-				// Створення опцій
-				const optionFrom = document.createElement('option');
-				optionFrom.value = currency;
-				optionFrom.textContent = currency;
-				fromDropdown.appendChild(optionFrom);
-
-				const optionTo = document.createElement('option');
-				optionTo.value = currency;
-				optionTo.textContent = currency;
-				toDropdown.appendChild(optionTo);
-			}
-
-			fromDropdown.value = 'Археос';
-			toDropdown.value = 'Ельфійська Імперія';
-
-			// ❌ ВИДАЛЕННЯ: Більше не оновлюємо лейбл, щоб не дублювати назву валюти
-			/* document.querySelector('.currency-block:first-child label').textContent = fromDropdown.value; */
-			/* document.querySelector('.currency-block:last-child label').textContent = toDropdown.value; */
-		}
-
-		function convertCurrency() {
-			const amountInput = document.getElementById('amount');
-			const fromCurrencySelect = document.getElementById('fromCurrency');
-			const toCurrencySelect = document.getElementById('toCurrency');
-			const resultText = document.getElementById('resultText');
-			const toAmountDisplay = document.getElementById('toAmountDisplay');
-
-			// ❌ ВИДАЛЕННЯ: Більше не оновлюємо лейбл
-			/* document.querySelector('.currency-block:first-child label').textContent = fromCurrencySelect.value; */
-			/* document.querySelector('.currency-block:last-child label').textContent = toCurrencySelect.value; */
-
-			let amount = parseFloat(amountInput.value);
-			if (isNaN(amount) || amount <= 0) {
-				resultText.textContent = "Введіть коректну суму.";
-				toAmountDisplay.textContent = '0.00';
-				return;
-			}
-
-			const fromCurrency = fromCurrencySelect.value;
-			const toCurrency = toCurrencySelect.value;
-
-			const rateFrom = rates[fromCurrency];
-			const rateTo = rates[toCurrency];
-
-			const amountInArcheos = amount / rateFrom;
-			const convertedAmount = amountInArcheos * rateTo;
-
-			const formattedAmount = convertedAmount.toFixed(2);
-
-			toAmountDisplay.textContent = formattedAmount;
-			resultText.textContent = `${amount.toFixed(2)} ${fromCurrency} = ${formattedAmount} ${toCurrency}`;
-		}
-
-		// Ініціалізація
-		populateDropdowns();
-		convertCurrency();
 
-	</script>
 
 
-	<style>
-		.content {
-			/* Прибираємо фіксовану ширину, якщо використовуємо body flex */
-			width: auto;
-			margin: 0;
-		}
 
-		.converter-container {
-			max-width: 650px;
-			width: 100%;
-			padding: 30px;
-			margin: 0 auto;
-			background: #222;
-			border-radius: 12px;
-		}
 
-		/* ДРУГИЙ БЛОК: СТИЛІ FLEXBOX ДЛЯ РОЗТАШУВАННЯ */
-		.input-group {
-			display: flex;
-			gap: 30px;
-			margin-bottom: 25px;
-			max-width: 600px;
-			width: 100%;
-		}
 
-		.currency-block {
-			flex: 1;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			padding: 20px 10px;
-			background: #292929;
-			border-radius: 8px;
-			/* 🔥 ВИПРАВЛЕННЯ: Розтягує елементи у стовпці вертикально */
-			justify-content: space-between;
-		}
 
-		/* ТРЕТІЙ БЛОК: СТИЛІ ЕЛЕМЕНТІВ ВВОДУ ТА РЕЗУЛЬТАТУ */
 
-		/* Загальні стилі для полів та результату */
-		.currency-block select,
-		.currency-block input[type="number"],
-		.currency-block #toAmountDisplay {
-			width: 100%;
-			box-sizing: border-box;
-			text-align: center;
-			font-size: 1.5em;
-			background: transparent;
-			border: none;
 
-			/* ВІРІВНЮВАННЯ: однакові відступи для input/select/p */
-			border-bottom: 2px solid #fff;
-			padding: 10px 0;
-			margin: 5px 0;
-			color: #fff;
-		}
 
-		/* Стилі для опцій (спливаюче вікно) */
-		.currency-block select option {
-			background-color: #222;
-			color: #fff;
-		}
 
-		/* Прибираємо підсвічування при фокусі */
-		.currency-block select:focus,
-		.currency-block input[type="number"]:focus {
-			outline: none;
-		}
 
-		/* Стилізація стрілочки */
-		.currency-block select {
-			-webkit-appearance: none;
-			-moz-appearance: none;
-			appearance: none;
-			background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-6.1%200-11.6%203.2-14.7%208.7-3.2%205.5-3.1%2012.3.1%2017.8l128%20202c3.2%205.5%209%208.7%2015%208.7s11.8-3.2%2015-8.7l128-202c3.3-5.5%203.4-12.3.2-17.8z%22%2F%3E%3C%2Fsvg%3E');
-			background-repeat: no-repeat;
-			background-position: right 10px center;
-			background-size: 10px;
-			padding-right: 30px;
-		}
 
-		/* ... (Ваші інші стилі) ... */
-	</style>
 
 
 
@@ -227,127 +42,8 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<style>
-		/* === (Кінець ваших існуючих стилів) === */
-
-		/* ====================================================== */
-		/* === НЕОБХІДНИЙ CSS ДЛЯ КАРТКИ МОНЕТ (МІНІМАЛІЗМ) === */
-		/* ====================================================== */
-		#coin-list-card {
-			width: 100%;
-			max-width: 650px;
-			box-sizing: border-box;
-
-			background: #222;
-			border-radius: 12px;
-			padding: 20px;
-			margin: 0 auto;
-			/* Центрування */
-			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-		}
-
-		.card-title {
-			text-align: center;
-			font-size: 1.3em;
-			font-weight: bold;
-			margin-bottom: 10px;
-		}
-
-		.select-prompt {
-			text-align: center;
-			margin-bottom: 15px;
-			font-size: 0.9em;
-			color: #ccc;
-		}
-
-		/* Стиль для селекта вибору держави */
-		#state-select-dropdown {
-			width: 100%;
-			box-sizing: border-box;
-			text-align: center;
-			font-size: 1.5em;
-			background: #292929;
-			border: 1px solid #7BADE2;
-			border-radius: 8px;
-			padding: 10px 0;
-			margin: 5px 0 20px 0;
-			color: #fff;
-
-			-webkit-appearance: none;
-			-moz-appearance: none;
-			appearance: none;
-
-			/* Стрілочка */
-			background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-6.1%200-11.6%203.2-14.7%208.7-3.2%205.5-3.1%2012.3.1%2017.8l128%20202c3.2%205.5%209%208.7%2015%208.7s11.8-3.2%2015-8.7l128-202c3.3-5.5%203.4-12.3.2-17.8z%22%2F%3E%3C%2Fsvg%3E');
-			background-repeat: no-repeat;
-			background-position: right 10px center;
-			background-size: 10px;
-			padding-right: 30px;
-		}
-
-		/* Стилі для 4-колонкової сітки монет */
-		.coin-names-grid {
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			gap: 15px 5px;
-			text-align: center;
-			/*font-size: 0.85em;*/
-		}
-
-		.coin-names-grid p {
-			margin: 0;
-			line-height: 1.2;
-			text-align: center;
-		}
-
-		.coin-names-grid p span {
-			display: block;
-			margin: 10px;
-			font-weight: 500;
-		}
-
-		/* Стиль для назви металу (верхній рядок) */
-		/*	.coin-names-grid p span[id^="metal-"] {
-			display: block;
-			color: #ccc;
-			font-size: 1.0em;
-			font-weight: 400;
-		}*/
-
-		/* Стиль для назви монети (нижній рядок) */
-		/*	.coin-names-grid p span[id^="coin-"] {
-			display: block;
-			font-weight: 700;
-			color: #fff;
-			font-size: 1.15em;
-		}*/
-	</style>
-
-	<body>
-		<div class="content">
-
+		<div>
+			<br><br>
 			<div id="coin-list-card">
 				<div class="coin-list-content">
 					<p class="card-title">Список валют</p>
@@ -513,6 +209,96 @@
 		</script>
 
 
+		<style>
+			#coin-list-card {
+				width: 100%;
+				max-width: 650px;
+				box-sizing: border-box;
+
+				background: #222;
+				border-radius: 12px;
+				padding: 20px;
+				margin: 0 auto;
+				/* Центрування */
+				/*box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);*/
+			}
+
+			.card-title {
+				text-align: center;
+				font-size: 1.3em;
+				font-weight: bold;
+				margin-bottom: 10px;
+			}
+
+			.select-prompt {
+				text-align: center;
+				margin-bottom: 15px;
+				font-size: 0.9em;
+				color: #ccc;
+			}
+
+			/* Стиль для селекта вибору держави */
+			#state-select-dropdown {
+				width: 100%;
+				box-sizing: border-box;
+				text-align: center;
+				font-size: 1.5em;
+				background: #292929;
+				border: 1px solid #7BADE2;
+				border-radius: 8px;
+				padding: 10px 0;
+				margin: 5px 0 20px 0;
+				color: #fff;
+
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+
+				/* Стрілочка */
+				background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-6.1%200-11.6%203.2-14.7%208.7-3.2%205.5-3.1%2012.3.1%2017.8l128%20202c3.2%205.5%209%208.7%2015%208.7s11.8-3.2%2015-8.7l128-202c3.3-5.5%203.4-12.3.2-17.8z%22%2F%3E%3C%2Fsvg%3E');
+				background-repeat: no-repeat;
+				background-position: right 10px center;
+				background-size: 10px;
+				padding-right: 30px;
+			}
+
+			/* Стилі для 4-колонкової сітки монет */
+			.coin-names-grid {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 15px 5px;
+				text-align: center;
+				/*font-size: 0.85em;*/
+			}
+
+			.coin-names-grid p {
+				margin: 0;
+				line-height: 1.2;
+				text-align: center;
+			}
+
+			.coin-names-grid p span {
+				display: block;
+				margin: 10px;
+				font-weight: 500;
+			}
+
+			/* Стиль для назви металу (верхній рядок) */
+			/*	.coin-names-grid p span[id^="metal-"] {
+			display: block;
+			color: #ccc;
+			font-size: 1.0em;
+			font-weight: 400;
+		}*/
+
+			/* Стиль для назви монети (нижній рядок) */
+			/*	.coin-names-grid p span[id^="coin-"] {
+			display: block;
+			font-weight: 700;
+			color: #fff;
+			font-size: 1.15em;
+		}*/
+		</style>
 
 
 
@@ -531,8 +317,264 @@
 
 
 
-		<div class="footerPlaceholder"></div>
-		<script src="../js/main.js"></script>
-	</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<br><br>
+		<div class="converter-container">
+			<h1>Конвертер Валют</h1>
+
+			<div class="input-group">
+				<div class="currency-block">
+					<label for="fromCurrency">Валюта З</label>
+					<select id="fromCurrency" onchange="convertCurrency()"></select>
+					<input type="number" id="amount" value="1.00" min="1" step="1" oninput="convertCurrency()">
+				</div>
+
+				<div class="currency-block">
+					<label for="toCurrency">Валюта У</label>
+					<select id="toCurrency" onchange="convertCurrency()"></select>
+					<p id="toAmountDisplay">0.00</p>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+	<div class="footerPlaceholder"></div>
+
+
+	<script>
+		const rates = {
+
+			"Археос": 1.0,
+			"Ельфійська Імперія": 2.0,
+			"Лон Джі Гоу": 2.5,
+			"Ярнагіль": 2.5,
+			"Ірмінсгал": 2.5,
+			"Іяґ'є тан": 1.2,
+			"Псавек": 4.0,
+			"Краґафор": 5.0,
+			"Дурґадоз": 7.0,
+			"Нурґаноґ": 7.0,
+			"Тіріґасоц": 7.0,
+			"Каранор": 6.0,
+			"Мінар'гар": 6.0
+		};
+
+		function populateDropdowns() {
+			const fromDropdown = document.getElementById('fromCurrency');
+			const toDropdown = document.getElementById('toCurrency');
+
+			// 1. Очищення, якщо потрібно (якщо викликається повторно)
+			fromDropdown.innerHTML = '';
+			toDropdown.innerHTML = '';
+
+			for (const currency in rates) {
+				// Створення опцій
+				const optionFrom = document.createElement('option');
+				optionFrom.value = currency;
+				optionFrom.textContent = currency;
+				fromDropdown.appendChild(optionFrom);
+
+				const optionTo = document.createElement('option');
+				optionTo.value = currency;
+				optionTo.textContent = currency;
+				toDropdown.appendChild(optionTo);
+			}
+
+			fromDropdown.value = 'Археос';
+			toDropdown.value = 'Ельфійська Імперія';
+
+		}
+
+		function convertCurrency() {
+			const amountInput = document.getElementById('amount');
+			const fromCurrencySelect = document.getElementById('fromCurrency');
+			const toCurrencySelect = document.getElementById('toCurrency');
+			const resultText = document.getElementById('resultText');
+			const toAmountDisplay = document.getElementById('toAmountDisplay');
+
+			let amount = parseFloat(amountInput.value);
+			if (isNaN(amount) || amount <= 0) {
+				resultText.textContent = "Введіть коректну суму.";
+				toAmountDisplay.textContent = '0.00';
+				return;
+			}
+
+			const fromCurrency = fromCurrencySelect.value;
+			const toCurrency = toCurrencySelect.value;
+
+			const rateFrom = rates[fromCurrency];
+			const rateTo = rates[toCurrency];
+
+			const amountInArcheos = amount / rateFrom;
+			const convertedAmount = amountInArcheos * rateTo;
+
+			const formattedAmount = convertedAmount.toFixed(2);
+
+			toAmountDisplay.textContent = formattedAmount;
+			resultText.textContent = `${amount.toFixed(2)} ${fromCurrency} = ${formattedAmount} ${toCurrency}`;
+		}
+
+		// Ініціалізація
+		populateDropdowns();
+		convertCurrency();
+
+	</script>
+
+
+	<style>
+		.converter-container {
+			max-width: 650px;
+			width: 100%;
+			padding: 30px;
+			margin: 0 auto;
+			background: #222;
+			border-radius: 12px;
+		}
+
+		/* ДРУГИЙ БЛОК: СТИЛІ FLEXBOX ДЛЯ РОЗТАШУВАННЯ */
+		.input-group {
+			display: flex;
+			/*gap: 30px;*/
+			margin-bottom: 25px;
+			/*max-width: 600px;*/
+			width: 100%;
+		}
+
+		.currency-block {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding: 20px 10px;
+			margin: 10px;
+			background: #292929;
+			border-radius: 8px;
+			justify-content: space-between;
+		}
+
+		/* ТРЕТІЙ БЛОК: СТИЛІ ЕЛЕМЕНТІВ ВВОДУ ТА РЕЗУЛЬТАТУ */
+
+		/* Загальні стилі для полів та результату */
+		.currency-block select,
+		.currency-block input[type="number"],
+		.currency-block #toAmountDisplay {
+			width: 100%;
+			box-sizing: border-box;
+			text-align: center;
+			font-size: 1.5em;
+			background: transparent;
+			border: none;
+
+			/* ВІРІВНЮВАННЯ: однакові відступи для input/select/p */
+			border-bottom: 2px solid #fff;
+			padding: 10px 0;
+			margin: 5px 0;
+			color: #fff;
+		}
+
+		/* Стилі для опцій (спливаюче вікно) */
+		.currency-block select option {
+			background-color: #222;
+			color: #fff;
+		}
+
+		/* Прибираємо підсвічування при фокусі */
+		.currency-block select:focus,
+		.currency-block input[type="number"]:focus {
+			outline: none;
+		}
+
+		/* Стилізація стрілочки */
+		.currency-block select {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-6.1%200-11.6%203.2-14.7%208.7-3.2%205.5-3.1%2012.3.1%2017.8l128%20202c3.2%205.5%209%208.7%2015%208.7s11.8-3.2%2015-8.7l128-202c3.3-5.5%203.4-12.3.2-17.8z%22%2F%3E%3C%2Fsvg%3E');
+			background-repeat: no-repeat;
+			background-position: right 10px center;
+			background-size: 10px;
+			padding-right: 30px;
+		}
+
+		/* ... (Ваші інші стилі) ... */
+	</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="footerPlaceholder"></div>
+	<script src="../js/main.js"></script>
+</body>
 
 </html>
