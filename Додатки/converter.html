@@ -213,8 +213,326 @@
 		/* ... (Ваші інші стилі) ... */
 	</style>
 
-	<div class="footerPlaceholder"></div>
-	<script src="../js/main.js"></script>
-</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<style>
+		/* === (Кінець ваших існуючих стилів) === */
+
+		/* ====================================================== */
+		/* === НЕОБХІДНИЙ CSS ДЛЯ КАРТКИ МОНЕТ (МІНІМАЛІЗМ) === */
+		/* ====================================================== */
+		#coin-list-card {
+			width: 100%;
+			max-width: 650px;
+			box-sizing: border-box;
+
+			background: #222;
+			border-radius: 12px;
+			padding: 20px;
+			margin: 0 auto;
+			/* Центрування */
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+		}
+
+		.card-title {
+			text-align: center;
+			font-size: 1.3em;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+
+		.select-prompt {
+			text-align: center;
+			margin-bottom: 15px;
+			font-size: 0.9em;
+			color: #ccc;
+		}
+
+		/* Стиль для селекта вибору держави */
+		#state-select-dropdown {
+			width: 100%;
+			box-sizing: border-box;
+			text-align: center;
+			font-size: 1.5em;
+			background: #292929;
+			border: 1px solid #7BADE2;
+			border-radius: 8px;
+			padding: 10px 0;
+			margin: 5px 0 20px 0;
+			color: #fff;
+
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+
+			/* Стрілочка */
+			background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-6.1%200-11.6%203.2-14.7%208.7-3.2%205.5-3.1%2012.3.1%2017.8l128%20202c3.2%205.5%209%208.7%2015%208.7s11.8-3.2%2015-8.7l128-202c3.3-5.5%203.4-12.3.2-17.8z%22%2F%3E%3C%2Fsvg%3E');
+			background-repeat: no-repeat;
+			background-position: right 10px center;
+			background-size: 10px;
+			padding-right: 30px;
+		}
+
+		/* Стилі для 4-колонкової сітки монет */
+		.coin-names-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 15px 5px;
+			text-align: center;
+			/*font-size: 0.85em;*/
+		}
+
+		.coin-names-grid p {
+			margin: 0;
+			line-height: 1.2;
+			text-align: center;
+		}
+
+		.coin-names-grid p span {
+			display: block;
+			margin: 10px;
+			font-weight: 500;
+		}
+
+		/* Стиль для назви металу (верхній рядок) */
+		/*	.coin-names-grid p span[id^="metal-"] {
+			display: block;
+			color: #ccc;
+			font-size: 1.0em;
+			font-weight: 400;
+		}*/
+
+		/* Стиль для назви монети (нижній рядок) */
+		/*	.coin-names-grid p span[id^="coin-"] {
+			display: block;
+			font-weight: 700;
+			color: #fff;
+			font-size: 1.15em;
+		}*/
+	</style>
+
+	<body>
+		<div class="content">
+
+			<div id="coin-list-card">
+				<div class="coin-list-content">
+					<p class="card-title">Список валют</p>
+
+					<select id="state-select-dropdown" onchange="updateCoinDisplay(this.value)"></select>
+
+					<div class="coin-names-grid">
+						<p>
+							<span id="metal-copper-name">Мідний</span>
+							<span id="coin-copper-name">Кермій</span>
+						</p>
+						<p>
+							<span id="metal-silver-name">Срібний</span>
+							<span id="coin-silver-name">Обол</span>
+						</p>
+						<p>
+							<span id="metal-gold-name">Золота</span>
+							<span id="coin-gold-name">Драхма</span>
+						</p>
+						<p>
+							<span id="metal-platinum-name">Платиновий</span>
+							<span id="coin-platinum-name">Талан</span>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<br><br>
+
+		</div>
+
+		<script>
+			const coinNames = {
+				'Археос': {
+					'Мідний': { metalName: 'Мідний', coinName: 'Кермій' },
+					'Срібний': { metalName: 'Срібний', coinName: 'Обол' },
+					'Золотий': { metalName: 'Золота', coinName: 'Драхма' },
+					'Платиновий': { metalName: 'Платиновий', coinName: 'Талан' }
+				},
+				'Астерістема': {
+					'Мідний': { metalName: 'Мідний', coinName: 'Мендар' },
+					'Срібний': { metalName: 'Срібний', coinName: 'Офір' },
+					'Золотий': { metalName: 'Золотий', coinName: 'Солміран' },
+					'Платиновий': { metalName: 'Платиновий', coinName: 'Беліос/Массар' }
+				},
+				'Тенемайн': {
+					'Мідний': { metalName: 'Мідний', coinName: 'Мендар' },
+					'Срібний': { metalName: 'Срібний', coinName: 'Офір' },
+					'Золотий': { metalName: 'Золотий', coinName: 'Лунор' },
+					'Платиновий': { metalName: 'Платиновий', coinName: 'Арель/Массар' }
+				},
+				'Лон Джі Гоу': {
+					'Мідний': { metalName: 'Мідний', coinName: 'Тонг' },
+					'Срібний': { metalName: 'Срібний', coinName: 'Їнь' },
+					'Золотий': { metalName: 'Золотий', coinName: 'Джиньзі' },
+					'Платиновий': { metalName: 'Платиновий', coinName: 'Бо' }
+				},
+				'Ярнагіль': {
+					'Мідний': { metalName: 'Мідний', coinName: 'Ферд' },
+					'Срібний': { metalName: 'Срібний', coinName: 'Селвір' },
+					'Золотий': { metalName: 'Золотий', coinName: 'Йорміл' },
+					'Платиновий': { metalName: 'Платиновий', coinName: 'Хелґйорт' }
+				},
+				'Ірмінсгал': {
+					'Мідний': { metalName: 'Мідний', coinName: 'Ферд' },
+					'Срібний': { metalName: 'Срібний', coinName: 'Селвір' },
+					'Золотий': { metalName: 'Золотий', coinName: 'Йорміл' },
+					'Платиновий': { metalName: 'Платиновий', coinName: 'Хелґйорт' }
+				},
+				'Іяґ\'є тан': {
+					'Мідний': { metalName: 'Мідний', coinName: 'Джаєн' },
+					'Срібний': { metalName: 'Срібний', coinName: 'Чонсін' },
+					'Золотий': { metalName: 'Золотий', coinName: 'Сончон' },
+					'Платиновий': { metalName: 'Платиновий', coinName: 'Сін' }
+				},
+				'Краґафор': {
+					'Мідний': { metalName: 'Мідний', coinName: 'Торг' },
+					'Срібний': { metalName: 'Срібний', coinName: 'Рунел' },
+					'Золотий': { metalName: 'Золотий', coinName: 'Світґар' },
+					'Платиновий': { metalName: 'Платиновий', coinName: 'Боґрад' }
+				},
+				'Дурґадоз': {
+					'Мідний': { metalName: 'Мідний', coinName: 'Торг' },
+					'Срібний': { metalName: 'Срібний', coinName: 'Рунел' },
+					'Золотий': { metalName: 'Золотий', coinName: 'Світґар' },
+					'Платиновий': { metalName: 'Платиновий', coinName: 'Боґрад' }
+				},
+				'Нурґаноґ': {
+					'Мідний': { metalName: 'Мідний', coinName: 'Торг' },
+					'Срібний': { metalName: 'Срібний', coinName: 'Рунел' },
+					'Золотий': { metalName: 'Золотий', coinName: 'Світґар' },
+					'Платиновий': { metalName: 'Платиновий', coinName: 'Боґрад' }
+				},
+				'Тіріґасоц': {
+					'Мідний': { metalName: 'Мідний', coinName: 'Торг' },
+					'Срібний': { metalName: 'Срібний', coinName: 'Рунел' },
+					'Золотий': { metalName: 'Золотий', coinName: 'Світґар' },
+					'Платиновий': { metalName: 'Платиновий', coinName: 'Боґрад' }
+				},
+				'Мінар\'гар': {
+					'Мідний': { metalName: 'Мідний', coinName: 'Торг' },
+					'Срібний': { metalName: 'Срібний', coinName: 'Рунел' },
+					'Золотий': { metalName: 'Золотий', coinName: 'Світґар' },
+					'Платиновий': { metalName: 'Платиновий', coinName: 'Боґрад' }
+				},
+				'Каранор': {
+					'Мідний': { metalName: 'Мідний', coinName: 'Торг' },
+					'Срібний': { metalName: 'Срібний', coinName: 'Рунел' },
+					'Золотий': { metalName: 'Золотий', coinName: 'Світґар' },
+					'Платиновий': { metalName: 'Платиновий', coinName: 'Боґрад' }
+				},
+				'Псавек ': {
+					'Мідний': { metalName: 'Мідний', coinName: 'Сетем' },
+					'Срібний': { metalName: 'Срібний', coinName: 'Тахет' },
+					'Золотий': { metalName: 'Золота', coinName: 'Уат\'са' },
+					'Платиновий': { metalName: 'Платиновий', coinName: 'Ірет-джа' }
+				}
+			};
+
+			let currentSelectedState = 'Археос';
+
+			// 💡 ФУНКЦІЯ: Оновлення назв монет та металів
+			function updateCoinDisplay(stateName) {
+				const names = coinNames[stateName];
+				if (names) {
+					// Оновлення Мідного
+					document.getElementById('metal-copper-name').textContent = names['Мідний'].metalName;
+					document.getElementById('coin-copper-name').textContent = names['Мідний'].coinName;
+
+					// Оновлення Срібного
+					document.getElementById('metal-silver-name').textContent = names['Срібний'].metalName;
+					document.getElementById('coin-silver-name').textContent = names['Срібний'].coinName;
+
+					// Оновлення Золотого
+					document.getElementById('metal-gold-name').textContent = names['Золотий'].metalName;
+					document.getElementById('coin-gold-name').textContent = names['Золотий'].coinName;
+
+					// Оновлення Платинового
+					document.getElementById('metal-platinum-name').textContent = names['Платиновий'].metalName;
+					document.getElementById('coin-platinum-name').textContent = names['Платиновий'].coinName;
+
+					currentSelectedState = stateName;
+				}
+			}
+
+			// 💡 ФУНКЦІЯ: Ініціалізація випадаючого списку держав
+			function populateStateDropdown() {
+				const dropdown = document.getElementById('state-select-dropdown');
+				dropdown.innerHTML = '';
+
+				for (const state in coinNames) {
+					const option = document.createElement('option');
+					option.value = state;
+					option.textContent = state;
+					dropdown.appendChild(option);
+				}
+				dropdown.value = currentSelectedState;
+			}
+
+			// Ініціалізація Картки Монет
+			populateStateDropdown();
+			updateCoinDisplay(currentSelectedState);
+		</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<div class="footerPlaceholder"></div>
+		<script src="../js/main.js"></script>
+	</body>
 
 </html>
