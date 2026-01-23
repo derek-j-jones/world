@@ -111,7 +111,7 @@ h2 {
 
 .map-container {
 	position: relative;
-	display: inline-block;
+	display: block;
 	width: fit-content;
 	height: auto;
 }
@@ -128,9 +128,9 @@ h2 {
 	all: unset;
 	/* скидати всі стилі браузера */
 	position: absolute;
-	width: 8px;
-	height: 8px;
-	border-radius: 50%;
+	width: 4px;
+	height: 4px;
+	border-radius: 100%;
 	background-color: #7BADE2;
 	border: 1px solid black;
 	cursor: pointer;
