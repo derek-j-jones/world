@@ -1,8 +1,11 @@
 (async () => {
+  // Визначаємо глибину сторінки
+  const depth = window.location.pathname.split('/').length - 2;
+  const basePath = '../'.repeat(depth);
 
   // Підвантаження хедера
   try {
-    const headerResponse = await fetch('/world/header.html');
+    const headerResponse = await fetch(basePath + 'header.html');
     const headerText = await headerResponse.text();
     const headerPlaceholder = document.querySelector('.headerPlaceholder');
     if (headerPlaceholder) {
@@ -15,7 +18,7 @@
 
   // Підвантаження футера
   try {
-    const footerResponse = await fetch('/world/footer.html');
+    const footerResponse = await fetch(basePath + 'footer.html');
     const footerText = await footerResponse.text();
     const footerPlaceholder = document.querySelector('.footerPlaceholder');
     if (footerPlaceholder) {
@@ -35,5 +38,4 @@ function addHeaderHandlers() {
       menu.classList.toggle('active');
     });
   }
-
 }

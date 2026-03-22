@@ -21,3 +21,14 @@ window.addEventListener('click', (e) => {
         e.target.style.display = 'none';
     }
 });
+
+window.addEventListener('load', () => {
+    const hash = window.location.hash.substring(1); // прибирає #
+
+    if (hash) {
+        const modal = document.getElementById('modal-' + hash);
+        if (modal) {
+            modal.style.display = 'block';
+        }
+    }
+});
